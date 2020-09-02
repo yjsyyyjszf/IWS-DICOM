@@ -7,15 +7,17 @@ window.config = {
   servers: {
     dicomWeb: [
       {
-        name: 'DCM4CHEE',
-        wadoUriRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado',
-        qidoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
-        wadoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
-        qidoSupportsIncludeField: true,
+        name: 'Orthanc',
+        wadoUriRoot: 'http://localhost:8088/wado',
+        qidoRoot: 'http://localhost:8088/dicom-web',
+        wadoRoot: 'http://localhost:8088/dicom-web',
+        qidoSupportsIncludeField: false,
         imageRendering: 'wadors',
         thumbnailRendering: 'wadors',
-        enableStudyLazyLoad: true,
-        supportsFuzzyMatching: true,
+        requestOptions: {
+          // undefined to use JWT + Bearer auth
+          auth: 'orthanc:!@#orthanc123',
+        },
       },
     ],
   },
@@ -117,6 +119,9 @@ window.config = {
     },
   ],
   cornerstoneExtensionConfig: {},
+  i18n: {
+    USE_LOCIZE: true,
+  }
   // Following property limits number of simultaneous series metadata requests.
   // For http/1.x-only servers, set this to 5 or less to improve
   //  on first meaningful display in viewer

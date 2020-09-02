@@ -237,7 +237,7 @@ class Viewer extends Component {
                     <ConnectedHeader
                       linkText={
                         appContext.appConfig.showStudyList
-                          ? 'Study List'
+                          ? '检查列表'
                           : undefined
                       }
                       linkPath={
