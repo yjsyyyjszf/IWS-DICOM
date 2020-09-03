@@ -4,6 +4,7 @@
   "Axial": "Axial",
   "Bidirectional": "Bidirectional",
   "Brush": "Brush",
+  "Annotate": "Annotate",
   "CINE": "CINE",
   "Cancel": "Cancel",
   "Circle": "Circle",
@@ -39,5 +40,6 @@
   "Stack Scroll": "Stack Scroll",
   "Stop": "$t(Common:Stop)",
   "Themes": "Themes",
-  "Zoom": "Zoom"
+  "Zoom": "Zoom",
+  "Download": "Download"
 }

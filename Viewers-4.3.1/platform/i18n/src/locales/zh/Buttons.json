@@ -4,6 +4,7 @@
   "Axial": "轴状面",
   "Bidirectional": "双向",
   "Brush": "橡皮擦",
+  "Annotate": "标注",
   "CINE": "播放动画",
   "Cancel": "取消",
   "Circle": "圆",
@@ -31,12 +32,13 @@
   "ROI Window": "选择对比度",
   "Rectangle": "矩形",
   "Reset": "复原",
-  "Reset to Defaults": "返回默认",
+  "Reset to Defaults": "",
   "Rotate Right": "顺时针旋转",
   "Sagittal": "矢状面",
   "Save": "保存",
   "Stack Scroll": "滑动切换图层",
   "Stop": "停止",
   "Themes": "主题",
-  "Zoom": "放大"
+  "Zoom": "放大",
+  "Download": "下载"
 }

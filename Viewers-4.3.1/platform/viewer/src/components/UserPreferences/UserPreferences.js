@@ -11,21 +11,21 @@ import { GeneralPreferences } from './GeneralPreferences';
 import './UserPreferences.styl';
 
 const tabs = [
-  {
-    name: 'Hotkeys',
-    Component: HotkeysPreferences,
-    customProps: {},
-  },
+  // {
+  //   name: 'Hotkeys',
+  //   Component: HotkeysPreferences,
+  //   customProps: {},
+  // },
   {
     name: 'General',
     Component: GeneralPreferences,
     customProps: {},
   },
-  {
-    name: 'Window Level',
-    Component: WindowLevelPreferences,
-    customProps: {},
-  },
+  // {
+  //   name: 'Window Level',
+  //   Component: WindowLevelPreferences,
+  //   customProps: {},
+  // },
 ];
 
 function UserPreferences({ hide }) {

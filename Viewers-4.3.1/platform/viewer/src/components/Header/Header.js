@@ -91,10 +91,15 @@ function Header(props) {
           )}
         </div>
 
-        {/*<div className="header-menu">*/}
+        <div className="header-menu">
           {/*<span className="research-use">{t('INVESTIGATIONAL USE ONLY')}</span>*/}
+          <div className="research-use" onClick={ () =>
+            show({
+              content: UserPreferences,
+              title: t('User Preferences'),
+            })}>Settings</div>
           {/*<Dropdown title={t('Options')} list={options} align="right" />*/}
-        {/*</div>*/}
+        </div>
       </div>
     </>
   );

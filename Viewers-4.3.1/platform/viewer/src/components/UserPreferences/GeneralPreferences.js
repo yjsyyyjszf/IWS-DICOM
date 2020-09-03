@@ -24,7 +24,7 @@ function GeneralPreferences({ onClose }) {
   const [language, setLanguage] = useState(currentLanguage);
 
   const onResetPreferences = () => {
-    setLanguage(i18n.defaultLanguage);
+    // setLanguage(i18n.defaultLanguage);
   };
 
   const onSave = () => {

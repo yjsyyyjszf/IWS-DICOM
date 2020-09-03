@@ -16,6 +16,7 @@ function TabFooter({
   return (
     <div className="footer">
       <button
+        style={{opacity: 0}}
         className="btn btn-danger pull-left"
         data-cy="reset-default-btn"
         onClick={onResetPreferences}
