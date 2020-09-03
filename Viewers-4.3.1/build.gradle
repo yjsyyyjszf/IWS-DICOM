@@ -1,0 +1,98 @@
+def os = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+
+task cleanAll(type: Delete) {
+    group "node"
+    delete "$project.projectDir/platform/viewer/dist", "$project.projectDir/platform/build", "$project.projectDir/platform/release"
+    followSymlinks = true
+}
+
+task installYarn(type: Exec, dependsOn: cleanAll) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "npm install -g yarn"
+    } else {
+        commandLine "sh", "-c", "npm install -g yarn"
+    }
+}
+
+task cleanCache(type: Exec, dependsOn: installYarn) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "yarn cache clean"
+    } else {
+        commandLine "sh", "-c", "yarn cache clean"
+    }
+}
+
+task configWorkspacesExperimental(type: Exec, dependsOn: cleanCache) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "yarn config set workspaces-experimental true"
+    } else {
+        commandLine "sh", "-c", "yarn config set workspaces-experimental true"
+    }
+}
+
+task configRegistry(type: Exec, dependsOn: configWorkspacesExperimental) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "npm install -g cnpm --registry=https://registry.npm.taobao.org"
+    } else {
+        commandLine "sh", "-c", "npm install -g cnpm --registry=https://registry.npm.taobao.org"
+    }
+}
+
+task installPuppette(type: Exec, dependsOn: configRegistry) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "cnpm install puppeteer"
+    } else {
+        commandLine "sh", "-c", "cnpm install puppeteer"
+    }
+}
+
+task installDependencies(type: Exec, dependsOn: installPuppette) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "yarn install"
+    } else {
+        commandLine "sh", "-c", "yarn install"
+    }
+}
+
+task yarnBuild(type: Exec, dependsOn: installDependencies) {
+    group "node"
+    workingDir "$project.projectDir"
+    if (os.contains("windows")) {
+        commandLine "cmd", "/c", "yarn run build"
+    } else {
+        commandLine "sh", "-c", "yarn run build"
+    }
+}
+
+task copyDist(type: Copy, dependsOn: yarnBuild) {
+//task copyDist(type: Copy) {
+    group "package"
+    from "$project.projectDir/platform/viewer/dist"
+    into "$project.projectDir/platform/build/dist"
+}
+
+task copyScript(type: Copy, dependsOn: copyDist) {
+    group "package"
+    from "$project.projectDir/platform/docker/Dockerfile", "$project.projectDir/platform/docker/nginx.conf", "$project.projectDir/platform/docker/startup.sh"
+    into "$project.projectDir/platform/build"
+}
+
+// 打包时执行此命令
+task release(type: Zip, dependsOn: copyScript) {
+    group "package"
+    from "$project.projectDir/platform/build"
+    archiveName = "ohif-viewer-build.zip"
+    destinationDir = new File("$project.projectDir/platform/release")
+}
