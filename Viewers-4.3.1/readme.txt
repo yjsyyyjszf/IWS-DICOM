@@ -17,6 +17,7 @@ docker镜像制作步骤：
     port：宿主机映射的端口
     nginxOrthancUrl：nginx中代理的orthanc服务地址，用于解决前端跨域问题
     orthancWebUrl：OHIF Viewer访问的web地址，需与自身应用同源，否则将跨域
+    运行示例：docker run --name ohif-viewer -d -p 3000:80 -e NGINX_ORTHANC_URL=http://10.54.35.133:8042/dicom-web -e ORTHANC_WEB_URL=http://10.54.35.133:3000/dicom-web greatwall/ohif-viewer:v1.0.0
 2、参考容器是否已运行，执行命令：docker ps -a | grep ohif-viewer
 3、检查docker容器启动日志，执行命令docker logs -f -t --tail 500 ohif-viewer
 4、开放服务器端口：
@@ -24,7 +25,7 @@ docker镜像制作步骤：
     firewall-cmd --zone=public --add-port=3000/tcp --permanent
     firewall-cmd --reload
 5、在浏览器访问：http://${ip}:${port}，查看服务是否启动。
-
+    示例：http://10.54.35.133:3000
 
 其他前端打包参考
     还原地址：

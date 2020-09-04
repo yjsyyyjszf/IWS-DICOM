@@ -77,7 +77,6 @@ task yarnBuild(type: Exec, dependsOn: installDependencies) {
 }
 
 task copyDist(type: Copy, dependsOn: yarnBuild) {
-//task copyDist(type: Copy) {
     group "package"
     from "$project.projectDir/platform/viewer/dist"
     into "$project.projectDir/platform/build/dist"
