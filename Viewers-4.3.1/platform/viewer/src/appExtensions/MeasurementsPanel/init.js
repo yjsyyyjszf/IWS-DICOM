@@ -143,10 +143,38 @@ export default function init({
     }
 
     UIDialogService.create({
-      eventData: event.detail,
-      content: ToolContextMenu,
+      eventData: event.detail, //old
+      id: 'context-menu',
+      isDraggable: false,
+      preservePosition: false,
+      defaultPosition: _getDefaultPosition(event.detail),
+      content: ToolContextMenu, //old
       contentProps: {
-        isTouchEvent: true,
+        isTouchEvent: true, //old
+        eventData: event.detail,
+        onDelete: (nearbyToolData, eventData) => {
+          const element = eventData.element;
+          commandsManager.runCommand('removeToolState', {
+            element,
+            toolType: nearbyToolData.toolType,
+            tool: nearbyToolData.tool,
+          });
+        },
+        onClose: () => UIDialogService.dismiss({ id: 'context-menu' }),
+        onSetLabel: (eventData, measurementData) => {
+          showLabellingDialog(
+            { centralize: true, isDraggable: false },
+            { skipAddLabelButton: true, editLocation: true },
+            measurementData
+          );
+        },
+        onSetDescription: (eventData, measurementData) => {
+          showLabellingDialog(
+            { defaultPosition: _getDefaultPosition(eventData) },
+            { editDescriptionOnDialog: true },
+            measurementData
+          );
+        },
       },
     });
   };

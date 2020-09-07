@@ -45,7 +45,8 @@ const ToolContextMenu = ({
     },
   ];
 
-  const getDropdownItems = (eventData, isTouchEvent = false) => {
+  const getDropdownItems = (eventData, isTouchEvent = true) => {
+    console.log(eventData)
     const nearbyToolData = commandsManager.runCommand('getNearbyToolData', {
       element: eventData.element,
       canvasCoordinates: eventData.currentPoints.canvas,
@@ -108,7 +109,7 @@ ToolContextMenu.propTypes = {
 };
 
 ToolContextMenu.defaultProps = {
-  isTouchEvent: false,
+  isTouchEvent: true,
 };
 
 export default ToolContextMenu;
